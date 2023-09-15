@@ -51,6 +51,17 @@ function updateCarousel(index, direction) {
     document.querySelector('p').innerHTML = tagLine;
 
     console.log(`Clic sur la flèche ${direction}`);
+
+    //correction du bug pour la première et la dernière image
+    if (currentIndex === 0 && direction === 'left') {
+        currentIndex = slides.length - 1;
+        updateCarousel(currentIndex, 'left');
+        updateDots(currentIndex);
+    } else if (currentIndex === slides.length - 1 && direction === 'right') {
+        currentIndex = 0;
+        updateCarousel(currentIndex, 'right');
+        updateDots(currentIndex);
+    }
 }
 
 // Gestionnaire d'événement pour le clic sur la flèche gauche
