@@ -36,32 +36,38 @@ function updateDots(index) {
     });
 }
 
-// Fonction pour afficher la diapositive actuelle
-function showSlide(index, direction){
-    if (index >= 0 && index < slides.length) {
-        bannerImg.src = `assets/images/slideshow/${slides[index].image}`;
-        bannerImg.alt = `Slide ${index + 1}`;
-        document.querySelector('p').innerHTML = slides[index].tagLine;
-    }
-	console.log('clic sur la flèche ${direction}')
+// Fonction pour mettre à jour les points indicateurs, l'image et le texte
+function updateCarousel(index, direction) {
+    // Mettre à jour les points indicateurs
+    updateDots(index);
+
+    // Mettre à jour l'image
+    const imagePath = `assets/images/slideshow/${slides[index].image}`;
+    bannerImg.src = imagePath;
+    bannerImg.alt = `Slide ${index + 1}`;
+
+    // Mettre à jour le texte
+    const tagLine = slides[index].tagLine;
+    document.querySelector('p').innerHTML = tagLine;
+
+    console.log(`Clic sur la flèche ${direction}`);
 }
 
 // Gestionnaire d'événement pour le clic sur la flèche gauche
 arrowLeft.addEventListener('click', function () {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex, 'left'); // Indiquer que la flèche gauche a été cliquée
+    updateCarousel(currentIndex, 'left');
     updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
 
 // Gestionnaire d'événement pour le clic sur la flèche droite
 arrowRight.addEventListener('click', function () {
     currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex, 'right'); // Indiquer que la flèche droite a été cliquée
+    updateCarousel(currentIndex, 'right');
     updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
 
 
 // Afficher la première diapositive au chargement de la page
-showSlide(currentIndex, 'démarrage');
+updateCarousel(currentIndex, 'démarrage');
 updateDots(currentIndex); // Mettez à jour les points indicateurs pour la première diapositive
-
