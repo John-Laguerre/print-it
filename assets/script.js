@@ -21,8 +21,20 @@ const slides = [
 const bannerImg = document.querySelector('.banner-img');
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
+const dots = document.querySelectorAll('.dot'); // Sélectionnez tous les points
 
 let currentIndex = 0;
+
+// Fonction pour mettre à jour les points indicateurs
+function updateDots(index) {
+    dots.forEach((dot, i) => {
+        if (i === index) {
+            dot.classList.add('dot_selected'); // Ajoutez la classe pour le point actuel
+        } else {
+            dot.classList.remove('dot_selected'); // Supprimez la classe pour les autres points
+        }
+    });
+}
 
 // Fonction pour afficher la diapositive actuelle
 function showSlide(index, direction){
@@ -37,15 +49,19 @@ function showSlide(index, direction){
 // Gestionnaire d'événement pour le clic sur la flèche gauche
 arrowLeft.addEventListener('click', function () {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex, 'left');
+    showSlide(currentIndex, 'left'); // Indiquer que la flèche gauche a été cliquée
+    updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
 
 // Gestionnaire d'événement pour le clic sur la flèche droite
 arrowRight.addEventListener('click', function () {
     currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex, 'right');
+    showSlide(currentIndex, 'right'); // Indiquer que la flèche droite a été cliquée
+    updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
+
 
 // Afficher la première diapositive au chargement de la page
 showSlide(currentIndex, 'démarrage');
+updateDots(currentIndex); // Mettez à jour les points indicateurs pour la première diapositive
 
