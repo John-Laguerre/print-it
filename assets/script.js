@@ -38,42 +38,43 @@ function updateDots(index) {
 
 // Fonction pour mettre à jour les points indicateurs, l'image et le texte
 function updateCarousel(index, direction) {
-    // Mettre à jour les points indicateurs
-    updateDots(index);
-
-    // Mettre à jour l'image
-    const imagePath = `assets/images/slideshow/${slides[index].image}`;
-    bannerImg.src = imagePath;
-    bannerImg.alt = `Slide ${index + 1}`;
-
-    // Mettre à jour le texte
-    const tagLine = slides[index].tagLine;
-    document.querySelector('p').innerHTML = tagLine;
-
-    console.log(`Clic sur la flèche ${direction}`);
-
-    //correction du bug pour la première et la dernière image
-    if (currentIndex === 0 && direction === 'left') {
+      //correction du bug pour la première et la dernière image
+      if (currentIndex === -1 && direction === 'left') {
         currentIndex = slides.length - 1;
         updateCarousel(currentIndex, 'left');
         updateDots(currentIndex);
-    } else if (currentIndex === slides.length - 1 && direction === 'right') {
+    } else if (currentIndex === slides.length && direction === 'right') {
         currentIndex = 0;
         updateCarousel(currentIndex, 'right');
         updateDots(currentIndex);
     }
+
+    // Mettre à jour les points indicateurs
+    updateDots(currentIndex);
+
+    // Mettre à jour l'image
+    const imagePath = `assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerImg.src = imagePath;
+    bannerImg.alt = `Slide ${currentIndex + 1}`;
+
+    // Mettre à jour le texte
+    const tagLine = slides[currentIndex].tagLine;
+    document.querySelector('p').innerHTML = tagLine;
+
+    console.log(`Clic sur la flèche ${direction}`);
+
 }
 
 // Gestionnaire d'événement pour le clic sur la flèche gauche
 arrowLeft.addEventListener('click', function () {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    currentIndex = (currentIndex - 1);
     updateCarousel(currentIndex, 'left');
     updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
 
 // Gestionnaire d'événement pour le clic sur la flèche droite
 arrowRight.addEventListener('click', function () {
-    currentIndex = (currentIndex + 1) % slides.length;
+    currentIndex = (currentIndex + 1) ;
     updateCarousel(currentIndex, 'right');
     updateDots(currentIndex); // Mettez à jour les points indicateurs
 });
