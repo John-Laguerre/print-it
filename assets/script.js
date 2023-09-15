@@ -25,26 +25,27 @@ const arrowRight = document.querySelector('.arrow_right');
 let currentIndex = 0;
 
 // Fonction pour afficher la diapositive actuelle
-function showSlide(index) {
+function showSlide(index, direction){
     if (index >= 0 && index < slides.length) {
         bannerImg.src = `assets/images/slideshow/${slides[index].image}`;
         bannerImg.alt = `Slide ${index + 1}`;
         document.querySelector('p').innerHTML = slides[index].tagLine;
     }
+	console.log('clic sur la flèche ${direction}')
 }
 
 // Gestionnaire d'événement pour le clic sur la flèche gauche
 arrowLeft.addEventListener('click', function () {
     currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    showSlide(currentIndex);
+    showSlide(currentIndex, 'left');
 });
 
 // Gestionnaire d'événement pour le clic sur la flèche droite
 arrowRight.addEventListener('click', function () {
     currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
+    showSlide(currentIndex, 'right');
 });
 
 // Afficher la première diapositive au chargement de la page
-showSlide(currentIndex);
+showSlide(currentIndex, 'démarrage');
 
