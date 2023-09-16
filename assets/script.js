@@ -41,16 +41,9 @@ function updateCarousel(index, direction) {
       //correction du bug pour la première et la dernière image
       if (currentIndex === -1 && direction === 'left') {
         currentIndex = slides.length - 1;
-        updateCarousel(currentIndex, 'left');
-        updateDots(currentIndex);
     } else if (currentIndex === slides.length && direction === 'right') {
         currentIndex = 0;
-        updateCarousel(currentIndex, 'right');
-        updateDots(currentIndex);
     }
-
-    // Mettre à jour les points indicateurs
-    updateDots(currentIndex);
 
     // Mettre à jour l'image
     const imagePath = `assets/images/slideshow/${slides[currentIndex].image}`;
@@ -62,7 +55,6 @@ function updateCarousel(index, direction) {
     document.querySelector('p').innerHTML = tagLine;
 
     console.log(`Clic sur la flèche ${direction}`);
-
 }
 
 // Gestionnaire d'événement pour le clic sur la flèche gauche
